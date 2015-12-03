@@ -2,6 +2,7 @@
 
 # Run a command in a private network namespace
 # set up by CNI plugins
+set -x
 contid=$(printf '%x%x%x%x' $RANDOM $RANDOM $RANDOM $RANDOM)
 netnspath=/var/run/netns/$contid
 
@@ -17,3 +18,4 @@ function cleanup() {
 trap cleanup EXIT
 
 ip netns exec $contid "$@"
+set +x
